@@ -1,9 +1,5 @@
 <?php
 
-// Testear si era necesario
-include_once("BaseController.php");
-
-
 // Encargado del manejo de errores y de formular los archivos json que se enviaran
 class CustomerController extends BaseController{
     // funcion encargada de realizar la busqueda del cliente por id
@@ -26,7 +22,9 @@ class CustomerController extends BaseController{
                     // Obtenemos el Id y generamos la consulta, trayendo la primer fila que 
                     // coincida con el id en customers
                     $id = $arrQueryStringParams['id']; 
-                    $customer = $customerModel->get_customer_id($id);   
+                    $customer = $customerModel->get_customer_id($id);
+                    // Recuperar la primera fila del resultado
+                    $customer = $customer[0];
 
                     // Si no trajo ninguna Fila generará un json de tipo error como respuesta
                     if ( !$customer ) {         
@@ -69,6 +67,8 @@ class CustomerController extends BaseController{
                 if (isset($arrQueryStringParams['name']) && $arrQueryStringParams['name']) {
                     $name = $arrQueryStringParams['name'];
                     $customer = $customerModel->get_customer_name($name);
+                    $customer = $customer[0];
+
                     if ( !$customer ) {
                         $strErrorDesc = 'No existe cliente de nombre:'.$name;
                         $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
@@ -104,6 +104,8 @@ class CustomerController extends BaseController{
                     $id = $arrQueryStringParams['id'];
                     $name = $arrQueryStringParams['name'];
                     $customer = $customerModel->get_customer_id_name($id,$name);
+                    $customer = $customer[0];
+
                     if ( !$customer ) {
                         $strErrorDesc = 'No existe cliente con id '.$id.' y nombre '.$name.'';
                         $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';

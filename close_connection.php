@@ -10,8 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["process"])) {
     $process = $_POST["process"];
 
     // Creación de query para cerrar la conexión con id process
-    $query = "SELECT pg_terminate_backend($process);";
-    $result = $conn->exec_query_db($query, $db);
+    $query = $conn->connect($db)->prepare('
+        SELECT pg_terminate_backend(:process);
+    ');
+    $query->execute(['process' => $process]);
 
     // Termina la ejecución de PHP después de procesar la solicitud AJAX
     exit();

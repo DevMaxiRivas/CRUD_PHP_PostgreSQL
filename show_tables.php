@@ -32,24 +32,28 @@
                                     
                                     $db = htmlspecialchars($_GET['db']);
                                     $conn = new DataBase();
-                                    $query = "
+                                    $query = $conn->connect($db)->prepare("
                                     SELECT 
                                         schemaname AS table_schema,
                                         tablename AS table_name, 
                                         tableowner AS table_owner
                                     FROM pg_tables
                                     WHERE schemaname = 'public';"
-                                    ;
+                                    );
                                         
                                     $result = $conn->exec_query_db($query, $db);
                                     // Corroboramos si se genero un error
                                     if ($result) {
                                         // Cargamos las filas con la informacion de las tablas de la BD seleccionada anteriormente
-                                        while ($table = pg_fetch_assoc($result)) {
+                                        foreach ($table as $result) {
                                             // Contamos la cantidad de filas de cada tabla
-                                            $query = "select count(0) as qty from ".$table['table_name'].";";
-                                            
-                                            $rows = pg_fetch_assoc($conn->exec_query_db($query, $db));
+                                            $query = $conn->connect($db)->prepare("
+                                                SELECT count(0) AS qty
+                                                FROM :tab;"
+                                            );
+                                            $res = $query->execute(['tab' => $table['table_name']]);
+                                            $rows = $res->fetch(PDO::FETCH_ASSOC);
+                                            $rows = $row[0];
                                             
                                             echo "<tr id='{$db}-{$table['table_name']}'>";
                                             echo "<td>{$table['table_schema']}</td>";

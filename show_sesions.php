@@ -28,7 +28,7 @@
                                 require_once __DIR__."/inc/bootstrap.php";
                                 $db = htmlspecialchars($_GET['db']);
                                 $conn = new DataBase();
-                                $query = "
+                                $query = $conn->connect($db)->prepare("
                                     SELECT 
                                         pid AS process,
                                         usename AS user,
@@ -37,12 +37,12 @@
                                         state,
                                         query
                                     FROM pg_catalog.pg_stat_activity 
-                                    WHERE datname ='".$_GET['db']."';"
-                                ;
-                                $result = $conn->exec_query_db($query, $db);
+                                    WHERE datname =':db';"
+                                );
+                                $result = $query->execute(['db' => $_GET['db']]);
                                 if($result){
                                     // Cargamos las conexiones activas al servidor de bases de datos
-                                    while ($row = pg_fetch_assoc($result)) {
+                                    foreach ($row as $result) {
                                         
                                         echo "<tr id='{$db}-{$row['process']}'>";
                                         echo "<td>{$row['process']}</td>";

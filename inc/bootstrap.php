@@ -10,7 +10,7 @@ require_once PROJECT_ROOT_PATH . "/controller/api/BaseController.php";
 require_once PROJECT_ROOT_PATH . "/controller/api/CustomerController.php";
 
 // incluimos el archivo del modelo base
-require_once PROJECT_ROOT_PATH . "/Model/DataBase.php";
+require_once PROJECT_ROOT_PATH . "/Model/Database.php";
 
 // incluimos el archivo del modelo de cliente 
 require_once PROJECT_ROOT_PATH . "/Model/CustomerModel.php";

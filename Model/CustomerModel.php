@@ -1,5 +1,4 @@
 <?php
-include_once("DataBase.php");
 class CustomerModel extends Database{
     // Metodos utilizado para consultar a la BD Northwind
     // Ambos metodos utilizan exec_query_db, el cual 
@@ -16,7 +15,9 @@ class CustomerModel extends Database{
         $query->execute(['id' => $id]);
 
         if($query->rowCount()){
-            return $query;
+            // Se usa PDO::FETCH_ASSOC para que se devuelva un 
+            // array de arrays asociativo
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         }
         return '';
     }
