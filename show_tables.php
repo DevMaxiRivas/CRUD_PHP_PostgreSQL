@@ -38,22 +38,22 @@
                                         tablename AS table_name, 
                                         tableowner AS table_owner
                                     FROM pg_tables
-                                    WHERE schemaname = 'public';"
-                                    );
-                                        
-                                    $result = $conn->exec_query_db($query, $db);
+                                    WHERE schemaname = 'public'
+                                    ORDER BY table_name;
+                                    ");
+                                    $query->execute();
+                                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
                                     // Corroboramos si se genero un error
                                     if ($result) {
                                         // Cargamos las filas con la informacion de las tablas de la BD seleccionada anteriormente
-                                        foreach ($table as $result) {
+                                        foreach ($result as $table) {
                                             // Contamos la cantidad de filas de cada tabla
                                             $query = $conn->connect($db)->prepare("
                                                 SELECT count(0) AS qty
-                                                FROM :tab;"
-                                            );
-                                            $res = $query->execute(['tab' => $table['table_name']]);
-                                            $rows = $res->fetch(PDO::FETCH_ASSOC);
-                                            $rows = $row[0];
+                                                FROM {$table['table_name']}
+                                            ;");
+                                            $query->execute();
+                                            $rows = $query->fetch(PDO::FETCH_ASSOC);
                                             
                                             echo "<tr id='{$db}-{$table['table_name']}'>";
                                             echo "<td>{$table['table_schema']}</td>";

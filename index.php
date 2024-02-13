@@ -2,25 +2,26 @@
     require __DIR__.'/template/header.php'
 ?>
 
-        <div class="card-body border border-primary">
+        <div class="card-body ">
             <h5 class="card-title">Inicio</h5>
             <p class="card-text">Elija la base de datos con la que quiera interactuar.</p>
             <form action="#" method="get">
-                <div class="mb-6 border border-primary">    
+                <div class="mb-6 ">    
                     <select id="selected-db" class="form-select" aria-label="Default select example">
                         <option id="opt-default" value='' selected>Base de Datos...</option>
                         <?php
                             // Importamos los archivos necesarios para crear una conexión
                             require_once __DIR__."/inc/bootstrap.php";
                             $db = new DataBase();
-                            $query = 'select datname from pg_database';
-                            $result = $db->exec_query_db($query, 'postgres');
+                            $result = $db->exec_query_db(
+                                "postgres",
+                                'SELECT datname FROM pg_database'
+                            );
                             if($result){
                                 // Cargamos las opciones dentro del combo-box
-                                while ($row = pg_fetch_row($result)) {
-                                    if ($row[0] != 'postgres' && $row[0]!='template0' && $row[0]!='template1' ) {
-                                        echo "<option value='$row[0]'>$row[0]</option>";
-
+                                foreach ($result as $row) {
+                                    if ($row['datname'] != 'postgres' && $row['datname']!='template0' && $row['datname']!='template1' ) {
+                                        echo "<option value=" . $row['datname'] . ">" . $row['datname'] . "</option>";
                                     }
                                 }
                                 echo "
@@ -41,7 +42,7 @@
                         ?>
                     <label id="label-bd-1"></label>
                 </div>
-                <div class="row mb-3 d-flex justify-content-center border border-primary">
+                <div class="row mb-3 d-flex justify-content-center">
                     <!--Colocamos links hacia "Ver Tablas" y "Ver Sesiones" -->
                     <a id="link-tables" href='#' class="btn btn-primary col-6 col-sm-5 m-2">Ver Tablas</a>
                     <a id="link-sessions" href="#" class="btn btn-primary col-6 col-sm-5 m-2">Ver Sesiones</a>

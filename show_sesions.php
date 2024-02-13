@@ -27,9 +27,11 @@
                                 // Importamos los archivos necesarios para crear una conexión
                                 require_once __DIR__."/inc/bootstrap.php";
                                 $db = htmlspecialchars($_GET['db']);
+                                echo $db;
                                 $conn = new DataBase();
-                                $query = $conn->connect($db)->prepare("
-                                    SELECT 
+                                $result = $conn->exec_query_db(
+                                    $db,
+                                    "SELECT 
                                         pid AS process,
                                         usename AS user,
                                         to_char(backend_start, 'YYYY-MM-DD HH24:MI') AS start,
@@ -37,13 +39,13 @@
                                         state,
                                         query
                                     FROM pg_catalog.pg_stat_activity 
-                                    WHERE datname =':db';"
+                                    WHERE datname = :db;",
+                                    ['db' => $db]
                                 );
-                                $result = $query->execute(['db' => $_GET['db']]);
+                                
                                 if($result){
                                     // Cargamos las conexiones activas al servidor de bases de datos
-                                    foreach ($row as $result) {
-                                        
+                                    foreach ($result as $row) {
                                         echo "<tr id='{$db}-{$row['process']}'>";
                                         echo "<td>{$row['process']}</td>";
                                         echo "<td>{$row['ip']}</td>";

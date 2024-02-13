@@ -6,48 +6,47 @@ class CustomerModel extends Database{
     // este metodo devuelve un/ningun customer dado un id
     public function get_customer_id($id){
         $db = 'northwind';
-        $query = $this->connect($db)->prepare('
+        $query = $this->exec_query_db($db,'
             SELECT * 
             FROM customers 
             WHERE trim(customerid) = :id 
             ORDER BY customerid limit 1;
-        ');
-        $query->execute(['id' => $id]);
+        ',['id' => $id]);
 
-        if($query->rowCount()){
+        if(count($query)){
             // Se usa PDO::FETCH_ASSOC para que se devuelva un 
             // array de arrays asociativo
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+            return $query;
         }
         return '';
     }
     public function get_customer_id_name($id, $name){
         $db = 'northwind';
-        $query = $this->connect($db)->prepare('
+        $query = $this->exec_query_db($db,'
             SELECT * 
             FROM customers 
             WHERE trim(customerid) = :id 
             AND trim(companyname) ILIKE :name
             ORDER BY customerid limit 1;
-        ');
-        $query->execute(['id' => $id, 'name' => $name]);
+        ',['id' => $id, 'name' => $name]);
 
-        if($query->rowCount()){
+        if(count($query)){
             return $query;
         }
         return '';
     }
     public function get_customer_name($name){
         $db = 'northwind';
-        $query = $this->connect($db)->prepare('
+        $query = $this->exec_query_db($db,'
             SELECT * 
             FROM customers 
             WHERE trim(companyname) ILIKE :name
             ORDER BY customerid limit 1;
-        ');
-        $query->execute(['name' => $name]);
+        ',['name' => $name]);
 
-        if($query->rowCount()){
+        if(count($query)){
+            // Se usa PDO::FETCH_ASSOC para que se devuelva un 
+            // array de arrays asociativo
             return $query;
         }
         return '';

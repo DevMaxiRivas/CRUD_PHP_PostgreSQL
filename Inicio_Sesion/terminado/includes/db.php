@@ -1,20 +1,23 @@
 <?php
 
-class Database{
+class DB{
     private $host;
+    private $db;
     private $user;
     private $password;
+    private $charset;
 
     public function __construct(){
         $this->host     = 'postgres';
+        $this->db       = 'compras';
         $this->user     = 'postgres';
         $this->password = "postgres";
     }
 
-    function connect($db){
+    function connect(){
     try {
         // Cadena de conexión para PostgreSQL
-        $connection = "pgsql:host=" . $this->host . ";dbname=" . $db . ";";
+        $connection = "pgsql:host=" . $this->host . ";dbname=" . $this->db . ";";
         
         // Opciones específicas de PostgreSQL
         $options = [
@@ -29,17 +32,14 @@ class Database{
     } catch (PDOException $e) {
         // En caso de error, imprimimos el mensaje
         print_r('Error connection: ' . $e->getMessage());
-    }    
-    }
-    
-    function exec_query_db($db, $query, $params = []){
-        $conn = $this->connect($db);
-        $stmt = $conn->prepare($query);
-        if($params != [])
-            $stmt->execute($params);
-        else
-            $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }   
 }
+
+}
+
+
+
+
+
+
 ?>

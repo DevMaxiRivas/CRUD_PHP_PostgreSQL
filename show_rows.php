@@ -10,7 +10,6 @@
                     // Importamos los archivos necesarios para realizar una conexíon
                     require_once __DIR__."/inc/bootstrap.php";
                     $conn = new DataBase();
-                    
                     // Limitamos el nro de filas a 100
                     $limit = 100;
                     if(isset($_GET['db']) && isset($_GET['name'])){
@@ -19,23 +18,26 @@
                         $table = htmlspecialchars($_GET['name']);
 
                         // Obtenemos las columnas de la tabla verificando que no sean del tipo bytea ni oid
-                        $query = "select column_name 
-                                  from information_schema.columns 
-                                  where 
-                                    table_name = '{$table}'
-                                    and data_type not in ('bytea','oid');";
-                        $result1 = $conn->exec_query_db($query, $db);
 
+                        $columns = $conn->exec_query_db(
+                            $db,
+                            "SELECT column_name 
+                            FROM information_schema.columns 
+                            WHERE 
+                                table_name = :table
+                                AND data_type NOT IN ('bytea','oid');",
+                            ['table' => $table]                     
+                        );
+                        
                         // Otenemos 100 filas
-                        $cols = $conn->exec_query_db($query, $db);
-                        $query = "select ".pg_fetch_assoc($cols)['column_name'];
-                        while (($col = pg_fetch_assoc($cols))){
+                        $query = "SELECT " . $columns[0]['column_name'];
+                        foreach ($columns as $col){
                             $query = $query.", {$col['column_name']}";
                         }
-                        $query = $query." from {$table} limit {$limit};";
-                        $result2 = $conn->exec_query_db($query, $db);
-                            
-                        if ($result1 && $result2) {
+                        $query = $query." FROM {$table} LIMIT {$limit};";
+                        $rows = $conn->exec_query_db($db,$query);
+
+                        if ($columns && $rows) {
                             // Creamos la tabla una vez consultemos a la BD obteniendo las columnas y las filas de la tabla
                             echo "
                             <div class='row' style=' height: 30em;width: 40em;overflow: auto;'>
@@ -44,7 +46,7 @@
                                     
                             // Creamos cabezal de la tabla, colocando como columnas todas las columnas de la tabla elegida
                             echo "<tr>";
-                            while ($column = pg_fetch_assoc($result1)) {
+                            foreach ($columns as $column) {
                                 echo "<th>{$column['column_name']}</th>";
                             }
                             echo "</tr>";
@@ -54,13 +56,13 @@
 
                             // Cargamos el body de la tabla con las 100 primeras filas de la tabla seleccionada
                             echo "<tbody id='tbody-rows'>";
-                            while (($row = pg_fetch_array($result2))) {
+
+                            foreach ($rows as $row) {
                                 echo "<tr>";
                                 // Recorremos las columnas obteniendo asi el valor correspondiente para cada fila
                                 // Cada vez que vamos a recorrer las columnas debemos reiniciar el puntero mediante pg_result_seek
-                                pg_result_seek($result1, 0);
-                                for($i = 0 ; $i<intdiv(count($row),2) ; $i++){
-                                    $column = pg_fetch_assoc($result1);
+
+                                foreach ($columns as $column) {
                                     echo "<td>{$row[$column['column_name']]}</td>";
                                 }
                                 echo "</tr>";

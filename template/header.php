@@ -22,4 +22,4 @@
             shadow p-3 mb-5 bg-white rounded
             ">
             <h5 class="card-header">TPFinal PADB 2023</h5>
-            <div class="card-body border border-primary">
+            <div class="card-body">
