@@ -1,6 +1,6 @@
                 <?php
                     // Importamos header
-                    require __DIR__.'/template/header.php';
+                    require __DIR__.'/../template/header.php';
 
                     // Corroboramos que la variable db se haya pasado en la URL
                     if(isset($_GET['db'])){
@@ -25,35 +25,33 @@
                         <tbody id="tbody-table">	
                             <?php 
                                 // Importamos los archivos necesarios para crear una conexión
-                                require_once __DIR__."/inc/bootstrap.php";
+                                require_once __DIR__."/../inc/bootstrap.php";
                                 
                                 // Controlamos nuevamente si db fue enviada por la URL
                                 if(isset($_GET['db'])){
                                     
                                     $db = htmlspecialchars($_GET['db']);
                                     $conn = new DataBase();
-                                    $query = $conn->connect($db)->prepare("
-                                    SELECT 
+                                    $result = $conn->exec_query_db($db,
+                                    "SELECT 
                                         schemaname AS table_schema,
                                         tablename AS table_name, 
                                         tableowner AS table_owner
                                     FROM pg_tables
                                     WHERE schemaname = 'public'
-                                    ORDER BY table_name;
-                                    ");
-                                    $query->execute();
-                                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                                    ORDER BY table_name;;"
+                                    );
                                     // Corroboramos si se genero un error
                                     if ($result) {
                                         // Cargamos las filas con la informacion de las tablas de la BD seleccionada anteriormente
                                         foreach ($result as $table) {
                                             // Contamos la cantidad de filas de cada tabla
-                                            $query = $conn->connect($db)->prepare("
-                                                SELECT count(0) AS qty
-                                                FROM {$table['table_name']}
-                                            ;");
-                                            $query->execute();
-                                            $rows = $query->fetch(PDO::FETCH_ASSOC);
+                                            $rows = $conn->exec_query_db(
+                                                $db,
+                                                "SELECT count(0) AS qty
+                                                FROM {$table['table_name']};"
+                                            );
+                                            $rows = $rows[0];
                                             
                                             echo "<tr id='{$db}-{$table['table_name']}'>";
                                             echo "<td>{$table['table_schema']}</td>";
@@ -95,7 +93,7 @@
 
             </div>
         </div>
-        <script src="./js/script-tables.js"></script>
+        <script src="./../js/script-tables.js"></script>
 <?php
-    require __DIR__.'/template/footer.php'
+    require __DIR__.'/../template/footer.php'
 ?>

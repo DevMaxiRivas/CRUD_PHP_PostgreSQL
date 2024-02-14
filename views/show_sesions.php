@@ -1,5 +1,5 @@
 <?php
-    require __DIR__.'/template/header.php'
+    require __DIR__.'/../template/header.php';
 ?>
                 <?php
                     if(isset($_GET['db'])){
@@ -25,7 +25,7 @@
                         <tbody id="tbody-table" style='height:20em;overflow-y:auto'>	
                             <?php 
                                 // Importamos los archivos necesarios para crear una conexión
-                                require_once __DIR__."/inc/bootstrap.php";
+                                require_once __DIR__."/../inc/bootstrap.php";
                                 $db = htmlspecialchars($_GET['db']);
                                 echo $db;
                                 $conn = new DataBase();
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <script src="./js/script-sesion.js"></script>
+        <script src="./../js/script-sesion.js"></script>
 <?php
-    require __DIR__.'/template/footer.php'
+    require __DIR__.'/../template/footer.php'
 ?>

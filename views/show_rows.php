@@ -1,5 +1,5 @@
 <?php
-                    require __DIR__.'/template/header.php';
+                    require __DIR__.'/../template/header.php';
                     if(isset($_GET['db']) && isset($_GET['name'])){
                         echo "<h5 class='card-title'>Primeras 100 filas de ".$_GET['name']."</h5>";
                     }
@@ -8,7 +8,7 @@
                     }
 
                     // Importamos los archivos necesarios para realizar una conexíon
-                    require_once __DIR__."/inc/bootstrap.php";
+                    require_once __DIR__."/../inc/bootstrap.php";
                     $conn = new DataBase();
                     // Limitamos el nro de filas a 100
                     $limit = 100;
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div>
-    <script src="./js/script-rows.js"></script>
+    <script src="./../js/script-rows.js"></script>
 <?php
-    require __DIR__.'/template/footer.php'
+    require __DIR__.'/../template/footer.php'
 ?>
