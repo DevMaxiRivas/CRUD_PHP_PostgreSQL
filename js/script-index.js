@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded',
         function ( e ) {
             let valor_seleccionado = $('#selected-db').val();
             if (valor_seleccionado != '') {
-                $(this).attr('href', 'views/show_tables.php?db='+valor_seleccionado);
+                $(this).attr('href', './views/show_tables.php?db='+valor_seleccionado);
             }
             else {
                 $(this).attr('href', '#');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded',
         function ( e ) {
             let valor_seleccionado = $('#selected-db').val();
             if (valor_seleccionado != '') {
-                $(this).attr('href', 'views/show_sesions.php?db='+valor_seleccionado);
+                $(this).attr('href', './views/show_sesions.php?db='+valor_seleccionado);
             }
             else {
                 $(this).attr('href', '#');

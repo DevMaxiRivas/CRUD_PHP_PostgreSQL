@@ -88,7 +88,7 @@
                 </div>
                 <div class="row mb-3">
                     <!-- Agregamos link para regresar a la pagina anterior -->
-                    <a href="index.php" class="btn btn-primary col-12 col-sm-5 m-1">Volver</a>
+                    <a href="../index.php" class="btn btn-primary col-12 col-sm-5 m-1">Volver</a>
                 </div>
 
             </div>

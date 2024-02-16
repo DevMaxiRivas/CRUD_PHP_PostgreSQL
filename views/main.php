@@ -3,7 +3,7 @@
 ?>
 
         <div class="card-body ">
-            <h5 class="card-title">Bienvenido <?php echo $user->getNombre(); ?></h5>
+            <h5 class="card-title">Bienvenido <b><?php echo $user->getNombre(); ?></b></h5>
             <p class="card-text">Elija la base de datos con la que quiera interactuar.</p>
             <form action="#" method="get">
                 <div class="mb-6 ">    

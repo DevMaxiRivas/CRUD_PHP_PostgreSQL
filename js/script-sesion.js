@@ -5,7 +5,7 @@ function end_process(process) {
     if (answer) {
         var xhr = new XMLHttpRequest();
         // Se utiliza XMLHttpRequest para enviar datos a la URL del servidor: close_connection.php
-        xhr.open("POST", "close_connection.php", true);
+        xhr.open("POST", "../close_connection.php", true);
         
         // Indicamos al servidor que los datos enviados en el cuerpo de la solicitud
         // se codifican en un formato de URL codificado        
