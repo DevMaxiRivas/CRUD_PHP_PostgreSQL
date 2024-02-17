@@ -8,7 +8,7 @@
                     }
 
                     // Importamos los archivos necesarios para realizar una conexíon
-                    require_once __DIR__."/../inc/bootstrap.php";
+                    require_once __DIR__."/../routes/bootstrap.php";
                     $conn = new DataBase();
                     // Limitamos el nro de filas a 100
                     $limit = 100;

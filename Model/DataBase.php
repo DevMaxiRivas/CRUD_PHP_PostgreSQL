@@ -6,9 +6,9 @@ class Database{
     private $password;
 
     public function __construct(){
-        $this->host     = 'postgres';
-        $this->user     = 'postgres';
-        $this->password = "postgres";
+        $this->host     = DB_HOST;
+        $this->user     = DB_USERNAME;
+        $this->password = DB_PASSWORD;
     }
 
     function connect($db){

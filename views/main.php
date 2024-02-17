@@ -11,7 +11,7 @@
                         <option id="opt-default" value='' selected>Base de Datos...</option>
                         <?php
                             // Importamos los archivos necesarios para crear una conexión
-                            require_once __DIR__."/../inc/bootstrap.php";
+                            require_once __DIR__."/../routes/bootstrap.php";
                             $db = new DataBase();
                             $result = $db->exec_query_db(
                                 "postgres",

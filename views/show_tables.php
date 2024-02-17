@@ -25,21 +25,22 @@
                         <tbody id="tbody-table">	
                             <?php 
                                 // Importamos los archivos necesarios para crear una conexión
-                                require_once __DIR__."/../inc/bootstrap.php";
+                                require_once __DIR__."/../routes/bootstrap.php";
                                 
                                 // Controlamos nuevamente si db fue enviada por la URL
                                 if(isset($_GET['db'])){
                                     
                                     $db = htmlspecialchars($_GET['db']);
                                     $conn = new DataBase();
-                                    $result = $conn->exec_query_db($db,
-                                    "SELECT 
-                                        schemaname AS table_schema,
-                                        tablename AS table_name, 
-                                        tableowner AS table_owner
-                                    FROM pg_tables
-                                    WHERE schemaname = 'public'
-                                    ORDER BY table_name;;"
+                                    $result = $conn->exec_query_db(
+                                        $db,
+                                        "SELECT 
+                                            schemaname AS table_schema,
+                                            tablename AS table_name, 
+                                            tableowner AS table_owner
+                                        FROM pg_tables
+                                        WHERE schemaname = 'public'
+                                        ORDER BY table_name;"
                                     );
                                     // Corroboramos si se genero un error
                                     if ($result) {

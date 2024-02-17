@@ -25,7 +25,7 @@
                         <tbody id="tbody-table" style='height:20em;overflow-y:auto'>	
                             <?php 
                                 // Importamos los archivos necesarios para crear una conexión
-                                require_once __DIR__."/../inc/bootstrap.php";
+                                require_once __DIR__."/../routes/bootstrap.php";
                                 $db = htmlspecialchars($_GET['db']);
                                 echo $db;
                                 $conn = new DataBase();

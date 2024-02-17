@@ -1,7 +1,7 @@
 <?php
 // Este bloque de código PHP se ejecutará en el servidor
 
-require_once __DIR__."/inc/bootstrap.php";
+require_once __DIR__."/routes/bootstrap.php";
 $db = 'postgres';
 $conn = new DataBase();
 // Se verifica si la solicitud es de tipo POST y si existe

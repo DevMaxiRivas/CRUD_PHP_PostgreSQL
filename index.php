@@ -1,6 +1,5 @@
 <?php
-include_once 'Model/user.php';
-include_once 'includes/user_session.php';
+require_once __DIR__ . "/routes/bootstrap.php";
 
 
 $userSession = new UserSession();
