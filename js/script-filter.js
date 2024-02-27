@@ -5,15 +5,8 @@ document.addEventListener('DOMContentLoaded',
         $('a').first().on('click',
             function() {
                 db = $(this).attr('id').split('-')[1];
-                $(this).attr('href','show_tables.php?db=' + db);
-            }
-        );
-
-        $('a').eq(1).on('click',
-            function() {
-                db = $(this).attr('id').split('-')[1];
                 name = $(this).attr('id').split('-')[2];
-                $(this).attr('href','show_filter.php?db=' + db + '&name=' + name);
+                $(this).attr('href','show_rows.php?db=' + db + '&name=' + name);
             }
         );
     }

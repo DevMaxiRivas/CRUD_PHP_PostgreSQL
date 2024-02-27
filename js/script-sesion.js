@@ -24,4 +24,6 @@ function end_process(process) {
     } else {
         alert("Operación cancelada.");
     }
+
+    
 }

@@ -94,8 +94,7 @@
                 <div class="row mb-3">
                     <?php
                         if(isset($_GET['db']) && isset($_GET['name'])){
-                            echo "<a id='btnvolver-".htmlspecialchars($_GET['db'])."' href='#' class='btn btn-primary col-12 col-sm-5 m-1'>Volver</a>";
-                            echo "<a id='btnfiltrar-".htmlspecialchars($_GET['db'])."-".htmlspecialchars($_GET['name'])."' href='#' class='btn btn-primary col-12 col-sm-5 m-1'>Filtrar</a>";
+                            echo "<a id='btnvolver-".htmlspecialchars($_GET['db'])."-".htmlspecialchars($_GET['name'])."' href='#' class='btn btn-primary col-12 col-sm-5 m-1'>Volver</a>";
                         }
                         else{
                             echo "<a href='../index.php' class='btn btn-primary col-12 col-sm-5 m-1'>Inicio</a>";
@@ -105,7 +104,7 @@
                 </div>
             </div>
         </div>
-    <script src="./../js/script-rows.js"></script>
+    <script src="./../js/script-filter.js"></script>
 <?php
     require __DIR__.'/../template/footer.php'
 ?>
