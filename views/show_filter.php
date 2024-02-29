@@ -31,7 +31,7 @@
                         
                     // Creamos un formulario con la columnas de las tablas
                         if ($columns) {
-                            echo '<form>';
+                            echo '<form action="show_result.php">';
                             
                             foreach ($columns as $col){
                                 echo 
@@ -43,7 +43,10 @@
 
 
                         echo 
-                            '   <button type="submit" class="btn btn-primary">Submit</button>
+                            '   <div class="row mb-3 d-flex justify-content-center">
+                                    <a id="btnvolver-'.$db.'-'.$table.'" href="#" class="btn btn-primary col-6 col-sm-5 m-2">Volver</a>
+                                    <button type="submit" class="btn btn-success col-6 col-sm-5 m-2">Filtrar</button>
+                                </div>
                             </form>';
                         }else{
                             // Si la consulta fallo, se le notificara al usuario
@@ -66,17 +69,6 @@
                     }
 
                 ?>
-                <div class="row mb-3">
-                    <?php
-                        if(isset($_GET['db']) && isset($_GET['name'])){
-                            echo "<a id='btnvolver-".htmlspecialchars($_GET['db'])."-".htmlspecialchars($_GET['name'])."' href='#' class='btn btn-primary col-12 col-sm-5 m-1'>Volver</a>";
-                        }
-                        else{
-                            echo "<a href='../index.php' class='btn btn-primary col-12 col-sm-5 m-1'>Inicio</a>";
-                        }   
-                    ?>
-                    
-                </div>
             </div>
         </div>
     <script src="./../js/script-filter.js"></script>

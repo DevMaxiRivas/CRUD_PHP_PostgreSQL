@@ -94,8 +94,12 @@
                 <div class="row mb-3">
                     <?php
                         if(isset($_GET['db']) && isset($_GET['name'])){
-                            echo "<a id='btnvolver-".htmlspecialchars($_GET['db'])."' href='#' class='btn btn-primary col-12 col-sm-5 m-1'>Volver</a>";
-                            echo "<a id='btnfiltrar-".htmlspecialchars($_GET['db'])."-".htmlspecialchars($_GET['name'])."' href='#' class='btn btn-primary col-12 col-sm-5 m-1'>Filtrar</a>";
+
+                            echo 
+                            '   <div class="row mb-3 d-flex justify-content-center">
+                                    <a id="btnvolver-'.htmlspecialchars($_GET['db']).'" href="#" class="btn btn-primary col-6 col-sm-5 m-2">Volver</a>
+                                    <a id="btnfiltrar-'.htmlspecialchars($_GET['db']).'-'.htmlspecialchars($_GET['name']).'" href="#" class="btn btn-primary col-6 col-sm-5 m-2">Filtrar</a>
+                                </div>';
                         }
                         else{
                             echo "<a href='../index.php' class='btn btn-primary col-12 col-sm-5 m-1'>Inicio</a>";
