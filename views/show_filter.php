@@ -31,19 +31,22 @@
                         
                     // Creamos un formulario con la columnas de las tablas
                         if ($columns) {
-                            echo '<form action="show_result.php">';
+                            echo '<form action="show_result.php" method="POST">';
                             
                             foreach ($columns as $col){
                                 echo 
                                     '<div class="form-group">
                                         <label for="'.$col['column_name'].'">'.$col['column_name'].'</label>
-                                        <input type="text" class="form-control" id="'.$col['column_name'].'" placeholder="Enter '.$col['column_name'].'">
+                                        <input type="text" class="form-control" id="'.$col['column_name'].'" name="'.$col['column_name'].'" placeholder="Enter '.$col['column_name'].'">
                                     </div>';
                             }
 
 
                         echo 
-                            '   <div class="row mb-3 d-flex justify-content-center">
+                            '   <input type="hidden" name="db" value="'.$db.'">
+                                <input type="hidden" name="table" value="'.$table.'">
+
+                                <div class="row mb-3 d-flex justify-content-center">
                                     <a id="btnvolver-'.$db.'-'.$table.'" href="#" class="btn btn-primary col-6 col-sm-5 m-2">Volver</a>
                                     <button type="submit" class="btn btn-success col-6 col-sm-5 m-2">Filtrar</button>
                                 </div>
