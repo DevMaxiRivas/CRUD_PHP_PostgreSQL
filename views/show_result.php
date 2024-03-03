@@ -64,6 +64,8 @@
                             foreach ($columns as $column) {
                                 echo "<th>{$column['column_name']}</th>";
                             }
+                            echo "  <th>Editar</th>";
+                            echo "  <th>Borrar</th>";
                             echo "</tr>";
                             
                             // Cerramos la etiqueta thead
@@ -80,6 +82,8 @@
                                 foreach ($columns as $column) {
                                     echo "<td>{$row[$column['column_name']]}</td>";
                                 }
+                                echo "<td><a href='#' onclick='edit_row(". json_encode($row) . ")'>v/</a></td>";
+                                echo "<td><a href='#' onclick='delete_row(". json_encode(array_merge(['db' => $db, 'table' => $table] ,$row)) . ")'>X</a></td>";
                                 echo "</tr>";
                             }
                             // Una vez lleno el body, procedemos a cerrar las etiquetas
