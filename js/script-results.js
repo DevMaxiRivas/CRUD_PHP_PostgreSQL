@@ -41,7 +41,7 @@ function edit_row(process) {
 
 }
 
-function delete_row(data) {
+function delete_row2(data) {
     // Consulta de cierre de conexión
     var answer = confirm("¿Seguro que quiere eliminar la fila?");
 
@@ -59,12 +59,42 @@ function delete_row(data) {
         // es exitosa (status == 200).
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                location.reload();
+                // location.reload();
+                window.location.href = "../delete_row.php";
             }
         };
         let jsonString = JSON.stringify(data);
         // Envio al servidor la información de la variable process sobre el identificador "process". 
         xhr.send("parameters=" + jsonString);
+    } else {
+        alert("Operación cancelada.");
+    }
+
+}
+function delete_row(data) {
+    // Consulta de cierre de conexión
+    var answer = confirm("¿Seguro que quiere eliminar la fila?");
+
+    if (answer) {
+                
+        // Configurar la URL de destino
+        var url = "../delete_row.php";
+
+        // Configurar la solicitud fetch POST
+        fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            // Redirigir a la página de destino
+            window.location.href = url;
+        })
+        .catch(function(error) {
+            console.error('Error al enviar datos:', error);
+        });
     } else {
         alert("Operación cancelada.");
     }

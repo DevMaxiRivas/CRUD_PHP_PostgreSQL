@@ -1,1 +1,5 @@
+# Ignorar Archivo de Credenciales
 inc/credenciales.txt
+
+# Ignorar Archivo VSCode
+Tester.code-workspace
