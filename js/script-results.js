@@ -59,13 +59,12 @@ function delete_row2(data) {
         // es exitosa (status == 200).
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                // location.reload();
-                window.location.href = "../delete_row.php";
+                location.reload();
+                // window.location.href = "../delete_row.php";
             }
         };
-        let jsonString = JSON.stringify(data);
         // Envio al servidor la información de la variable process sobre el identificador "process". 
-        xhr.send("parameters=" + jsonString);
+        xhr.send("parameters=" + data);
     } else {
         alert("Operación cancelada.");
     }
@@ -84,13 +83,15 @@ function delete_row(data) {
         fetch(url, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
         .then(function(response) {
             // Redirigir a la página de destino
-            window.location.href = url;
+            // window.location.href = url;
+            // location.reload();
+            console.log("Funciono");
         })
         .catch(function(error) {
             console.error('Error al enviar datos:', error);

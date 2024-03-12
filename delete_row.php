@@ -4,11 +4,10 @@
 require_once __DIR__."/routes/bootstrap.php";
 // Se verifica si la solicitud es de tipo POST y si existe
 // un parámetro llamado "process" en la solicitud
-echo"Termin";
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["parameters"])) {
-    $conn = new DataBase();
-    
-    $parameters = json_decode($_POST["parameters"], true);
+$conn = new DataBase();
+
+$parameters = json_decode(file_get_contents('php://input'), true);
+if (!empty($parameters)) {
 
     $db = array_pop($parameters);
     $table = array_pop($parameters);
@@ -33,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["parameters"])) {
         WHERE ' . implode(" AND ", $columns) . ";"
         ,$parameters);
     // Termina la ejecución de PHP después de procesar la solicitud AJAX
-    echo"Termin";
     exit();
 }
 ?>
