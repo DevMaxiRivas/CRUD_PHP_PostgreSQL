@@ -80,10 +80,10 @@
                                 // Cada vez que vamos a recorrer las columnas debemos reiniciar el puntero mediante pg_result_seek
 
                                 foreach ($columns as $column) {
-                                    echo "<td>{$row[$column['column_name']]}</td>";
+                                    echo "<td contenteditable='true'>{$row[$column['column_name']]}</td>";
                                 }
-                                echo "<td><a href='#' onclick='edit_row(". json_encode($row) . ")'>v/</a></td>";
-                                echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2' onclick='delete_row(". json_encode(array_merge($row,['db' => $db, 'table' => $table])) . ")'>Eliminar</a></td>";
+                                echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2 p-0' onclick='edit_row(". json_encode($row) . ")'>Confirmar</a></td>";
+                                echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2 p-0' onclick='delete_row(". json_encode(array_merge($row,['db' => $db, 'table' => $table])) . ")'>Eliminar</a></td>";
                                 echo "</tr>";
                             }
                             // Una vez lleno el body, procedemos a cerrar las etiquetas
