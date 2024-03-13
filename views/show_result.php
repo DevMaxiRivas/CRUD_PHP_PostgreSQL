@@ -83,7 +83,7 @@
                                     echo "<td>{$row[$column['column_name']]}</td>";
                                 }
                                 echo "<td><a href='#' onclick='edit_row(". json_encode($row) . ")'>v/</a></td>";
-                                echo "<td><a href='#' onclick='delete_row(". json_encode(array_merge(['db' => $db, 'table' => $table] ,$row)) . ")'>X</a></td>";
+                                echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2' onclick='delete_row(". json_encode(array_merge($row,['db' => $db, 'table' => $table])) . ")'>Eliminar</a></td>";
                                 echo "</tr>";
                             }
                             // Una vez lleno el body, procedemos a cerrar las etiquetas
@@ -94,7 +94,7 @@
                             echo "
                                 <div class='alert alert-danger' style='heigth:5em;'>
                                     <p>
-                                        No se pudo obtener las columnas y/o las filas de la Tabla
+                                        No se encontraron coincidencias con los campos proporcionados
                                     </p>
                                 </div>";
                         }
