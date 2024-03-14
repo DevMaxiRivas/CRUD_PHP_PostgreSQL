@@ -80,9 +80,9 @@
                                 // Cada vez que vamos a recorrer las columnas debemos reiniciar el puntero mediante pg_result_seek
 
                                 foreach ($columns as $column) {
-                                    echo "<td contenteditable='true'>{$row[$column['column_name']]}</td>";
+                                    echo "<td class='celda' contenteditable='true'>{$row[$column['column_name']]}</td>";
                                 }
-                                echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2 p-0' onclick='edit_row(". json_encode($row) . ")'>Confirmar</a></td>";
+                                echo "<td><a href='#' original='". json_encode(array_merge($row,['db' => $db, 'table' => $table])) ."'class='boton-editar celda-no-editada btn btn-primary col-4 col-sm-6 m-2 p-0' >Confirmar</a></td>";
                                 echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2 p-0' onclick='delete_row(". json_encode(array_merge($row,['db' => $db, 'table' => $table])) . ")'>Eliminar</a></td>";
                                 echo "</tr>";
                             }

@@ -12,6 +12,31 @@ document.addEventListener('DOMContentLoaded',
     }
 );
 
+var filas = document.getElementsByTagName('tr');
+
+filas.forEach(fila => {
+    var celdas = fila.getElementsByTagName('td');
+    var boton_editar = fila.querySelector('.boton-editar');
+
+    celdas.forEach((celda) => {
+        celda.addEventListener("keyup", () => {
+            boton_editar.classList.replace("celda-no-editada", "celda-editada");
+        });
+    });
+
+    boton_editar.addEventListener('click', () => {
+        if (boton_editar.classList.contains("celda-editada")) {
+            modificar_fila(boton_editar.getAttribute('valores-originales'), fila);
+            boton_editar.classList.replace("celda-editada", "celda-no-editada");
+        }
+    });
+});
+
+
+function modificar_fila(original, editado){
+    console.log(original);
+}
+
 function edit_row(process) {
     // Consulta de cierre de conexión
     var answer = confirm("¿Seguro que quiere editar la fila?");
