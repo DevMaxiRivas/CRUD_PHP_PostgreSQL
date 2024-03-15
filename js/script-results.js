@@ -1,36 +1,37 @@
 // Cada vez que se cargue el DOM de la pagina se asigna un oyente al enlace para volver
 // a la pagina que muestra las tablas, por eso se obtiene el nombre de la BD desde el id del link
-document.addEventListener('DOMContentLoaded',
-    function () {
-        $('a').first().on('click',
-            function() {
-                db = $(this).attr('id').split('-')[1];
-                name = $(this).attr('id').split('-')[2];
-                $(this).attr('href','show_rows.php?db=' + db + '&name=' + name);
+document.addEventListener('DOMContentLoaded', () => {
+        btnvolver = document.querySelector('.btnvolver');
+        btnvolver .addEventListener('click', () => {
+                db = btnvolver.getAttribute('id').split('-')[1];
+                name = btnvolver.getAttribute('id').split('-')[2];
+                btnvolver.setAttribute('href','show_rows.php?db=' + db + '&name=' + name);
             }
         );
+
+        var filas = document.getElementsByTagName('TR');
+        for(fila of filas){
+            var celdas = fila.getElementsByTagName('TD');
+            var boton_editar = fila.querySelector('.boton-editar');
+            console.log(boton_editar);
+
+            for(celda of celdas){
+                celda.addEventListener("keyup", () => {
+                    boton_editar.classList.replace("celda-no-editada", "celda-editada");
+                });
+            }
+            console.log(boton_editar);
+            boton_editar.addEventListener('click', () => {
+                if (boton_editar.classList.contains("celda-editada")) {
+                    modificar_fila(boton_editar.getAttribute('valores-originales'), fila);
+                    boton_editar.classList.replace("celda-editada", "celda-no-editada");
+                }
+            });
+        }
     }
 );
 
-var filas = document.getElementsByTagName('tr');
 
-filas.forEach(fila => {
-    var celdas = fila.getElementsByTagName('td');
-    var boton_editar = fila.querySelector('.boton-editar');
-
-    celdas.forEach((celda) => {
-        celda.addEventListener("keyup", () => {
-            boton_editar.classList.replace("celda-no-editada", "celda-editada");
-        });
-    });
-
-    boton_editar.addEventListener('click', () => {
-        if (boton_editar.classList.contains("celda-editada")) {
-            modificar_fila(boton_editar.getAttribute('valores-originales'), fila);
-            boton_editar.classList.replace("celda-editada", "celda-no-editada");
-        }
-    });
-});
 
 
 function modificar_fila(original, editado){

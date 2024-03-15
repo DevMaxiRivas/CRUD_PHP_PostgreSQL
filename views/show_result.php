@@ -82,7 +82,7 @@
                                 foreach ($columns as $column) {
                                     echo "<td class='celda' contenteditable='true'>{$row[$column['column_name']]}</td>";
                                 }
-                                echo "<td><a href='#' original='". json_encode(array_merge($row,['db' => $db, 'table' => $table])) ."'class='boton-editar celda-no-editada btn btn-primary col-4 col-sm-6 m-2 p-0' >Confirmar</a></td>";
+                                echo "<td><a href='#' valores-originales='". json_encode(array_merge($row,['db' => $db, 'table' => $table])) ."'class='boton-editar celda-no-editada btn btn-primary col-4 col-sm-6 m-2 p-0' >Confirmar</a></td>";
                                 echo "<td><a href='#' class='btn btn-primary col-4 col-sm-6 m-2 p-0' onclick='delete_row(". json_encode(array_merge($row,['db' => $db, 'table' => $table])) . ")'>Eliminar</a></td>";
                                 echo "</tr>";
                             }
@@ -116,7 +116,7 @@
 
                             echo 
                             '   <div class="row mb-3 d-flex justify-content-center">
-                                    <a id="btnvolver-'.htmlspecialchars($_POST['db'])."-".htmlspecialchars($_POST['table']).'" href="#" class="btn btn-primary col-6 col-sm-5 m-2">Volver</a>
+                                    <a id="btnvolver-'.htmlspecialchars($_POST['db'])."-".htmlspecialchars($_POST['table']).'" href="#" class="btnvolver btn btn-primary col-6 col-sm-5 m-2">Volver</a>
                                     <a href="../index.php" class="btn btn-primary col-6 col-sm-5 m-2">Inicio</a>
                                 </div>';
                         }

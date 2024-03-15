@@ -1,1 +1,1 @@
-descripcountry: Paraguay - country: PAR - Termino
+descripcountry: Mexico - country: MEX - Termino
